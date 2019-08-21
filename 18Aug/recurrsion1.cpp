@@ -16,5 +16,6 @@ int main(){
     int n;
     cin>>n;
     increasing(n);
+    cout<<endl;
     return 0;
 }
