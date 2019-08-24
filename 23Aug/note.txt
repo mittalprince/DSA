@@ -1,0 +1,11 @@
+Address ka type character hai.
+(pointer reference) & operator exception -> does not print Address of type char.
+To print address of char type use type casting.
+For Reason say (<< operator) overload (Search why).
+
+Pointer of diferent types  -> same size (as store address and add is same for all types (hexDec)).
+Size of pointer -> 32 Bit system -> 4bit, 64 Bit system -> 8bit.
+
+One type of pointer can not asign to other type. Reason -> data lose, different no of bits required to store data (as char require 1, and int requiure 4).
+char *chprt = &x; ERROR -> can not convert int* to char*.
+
