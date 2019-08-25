@@ -4,7 +4,9 @@ using namespace std;
 typedef long long ll;
 
 ll TotalWays(ll n, ll m){
-
+    if(n == 0){
+        return 0; 
+    
     if(n < m){
         return 1;
     }
