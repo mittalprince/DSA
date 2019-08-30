@@ -2,14 +2,14 @@
 using namespace std;
 typedef long long ll;
 
-void Ans( vector< vector<int> > V){
+void Ans( vector< vector<ll> > V){
 
     ll t,size,l,r,dir;
     
     t=0;
-    size=v.size()-1;
+    size=V.size()-1;
     l=0;
-    r=v[0].size()-1;
+    r=V[0].size()-1;
     
     dir =0;
     
@@ -17,14 +17,14 @@ void Ans( vector< vector<int> > V){
         
         if(dir == 0){
             for(int i=l; i<=r;i++){
-                cout<<v[t][i]<<", ";
+                cout<<V[t][i]<<", ";
             }
             t++;
         }
         
         if(dir == 1){
             for(int i=t;i<=size;i++){
-                cout<<v[i][r]<<", ";
+                cout<<V[i][r]<<", ";
             }
             
             r--;
@@ -32,14 +32,14 @@ void Ans( vector< vector<int> > V){
         
         if(dir == 2){
             for(int i=r ; i>=l;i--){
-                cout<<v[size][i]<<", ";
+                cout<<V[size][i]<<", ";
             }
-            b = b-1;
+            size = size-1;
         }
         
         if(dir == 3){
             for(int i=size;i>=t;i--){
-                cout<<v[i][l]<<", ";
+                cout<<V[i][l]<<", ";
             }
             l=l+1;
         }
@@ -65,4 +65,4 @@ int main(){
     cout<<"END"<<endl;
     return 0;
     
-}
+}      
