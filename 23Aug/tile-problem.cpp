@@ -2,11 +2,12 @@
 
 using namespace std;
 typedef long long ll;
+#define mod 1000000007
 
 ll TotalWays(ll n, ll m){
     if(n == 0){
         return 0; 
-    
+    }
     if(n < m){
         return 1;
     }
@@ -21,7 +22,7 @@ ll TotalWays(ll n, ll m){
 int main(){
 
     ll n,m;
-    cin>>m>>n;
-    cout<<TotalWays(n, m)<<endl;
+    cin>>n>>m;
+    cout<<(TotalWays(n, m)%mod)<<endl;
     return 0;
 }

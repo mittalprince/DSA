@@ -25,7 +25,7 @@ int fastPow(int a, int b){
     if(b == 0){
         return 1;
     }
-    int k = power(a, b/2);
+    int k = fastPow(a, b/2);
     if( b%2 != 0){
         return a*k*k;
     }
