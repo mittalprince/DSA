@@ -2,40 +2,24 @@
 using namespace std;
 typedef long long ll;
 
-void SPiralPrint(vector<vector<ll>> v, ll m, ll n)
+void RowWave(vector<vector<ll>> v, ll m, ll n)
 {
     ll i, k = 0, l = 0;
 
-    while (k < m && l < n)
+    while (k < m)
     {
-
         for (i = l; i < n; i++)
         {
             cout << v[k][i] << ", ";
         }
         k++;
-
-        for (i = k; i < m; i++)
-        {
-            cout << v[i][n - 1] << ", ";
-        }
-        n--;
-
         if (k < m)
         {
             for (i = n - 1; i >= l; i--)
             {
-                cout << v[m - 1][i] << ", ";
+                cout << v[k][i] << ", ";
             }
-            m--;
-        }
-        if (l < n)
-        {
-            for (i = m - 1; i >= k; i--)
-            {
-                cout << v[i][l] << ", ";
-            }
-            l++;
+            k++;
         }
     }
 }
@@ -54,7 +38,7 @@ int main()
         }
     }
 
-    SPiralPrint(v, m, n);
-    cout<<"END"<<endl;
+    RowWave(v, m, n);
+    cout << "END" << endl;
     return 0;
 }
