@@ -10,7 +10,7 @@ int main(){
         cin>>no;
         ll ct = 0;
         while(no){
-            if(no%2 != 0){
+            if(no&1){
                 ct++;
             }
             no = no>>1;

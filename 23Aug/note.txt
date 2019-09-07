@@ -9,3 +9,10 @@ Size of pointer -> 32 Bit system -> 4bit, 64 Bit system -> 8bit.
 One type of pointer can not asign to other type. Reason -> data lose, different no of bits required to store data (as char require 1, and int requiure 4).
 char *chprt = &x; ERROR -> can not convert int* to char*.
 
+How to find whether a no is power of 2 or not ?
+use n&(n-1)
+
+Any given no can have atmost log(n)+1 bits.
+
+kisi bhi no ka 2's complement uss no ke ~(no-1) ke equal hota hai 
+
