@@ -16,3 +16,5 @@ Any given no can have atmost log(n)+1 bits.
 
 kisi bhi no ka 2's complement uss no ke ~(no-1) ke equal hota hai 
 
+Reason to store negative no in 2's complement form is because -0 and +0 can not exist.
+
