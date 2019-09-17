@@ -34,6 +34,21 @@ void printList(Node *head)
     cout << endl;
 }
 
+Node* midPoint(Node* head){
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+
+    Node* slow_ptr = head;
+    Node* fast_ptr = head->next;
+
+    while(fast_ptr != NULL && fast_ptr->next != NULL){
+        slow_ptr = slow_ptr->next;
+        fast_ptr = fast_ptr->next->next;
+    }
+    return slow_ptr;
+}
+
 Node *merge(Node *a, Node *b)
 {
     if (a == NULL)
@@ -59,7 +74,21 @@ Node *merge(Node *a, Node *b)
     return c;
 }
 
-// Node* mergeSort(Node* head, )
+Node* mergeSort(Node* &head){
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+
+    Node* mid = midPoint(head);
+    Node* x = head;
+    Node* y = mid->next;
+    mid->next = NULL;
+
+    x = mergeSort(x);
+    y = mergeSort(y);
+
+    return merge(x, y);
+}
 
 int main()
 {
@@ -75,5 +104,7 @@ int main()
     insertAtHead(head, 1);
     printList(head);
 
+    head = mergeSort(head);
+    printList(head);
     return 0;
 }
