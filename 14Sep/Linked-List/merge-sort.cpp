@@ -87,7 +87,8 @@ Node* mergeSort(Node* &head){
     x = mergeSort(x);
     y = mergeSort(y);
 
-    return merge(x, y);
+    Node* c = merge(x, y);
+    return c;
 }
 
 int main()

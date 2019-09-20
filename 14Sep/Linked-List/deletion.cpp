@@ -78,7 +78,7 @@ void deleteAtMiddle(Node* &head, int p){
             jump++;
         }
         Node* n = temp->next;
-        n->next = NULL:
+        n->next = NULL;
         temp->next = (temp->next)->next;
         delete n;
     }
