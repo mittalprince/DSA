@@ -61,6 +61,5 @@ int main(){
     Node* head = NULL;
     cin>>head;
     printList(head);
-    cout<<endl;
-    cout<<length(head)<<endl;
+    
 }
