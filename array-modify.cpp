@@ -63,3 +63,5 @@ int main()
     }
     return 0;
 }
+
+// You are given an array A of size N. Your task is to divide the elements into two parts such that the first N/2 elements are strictly increasing and next N/2 elements are non-decreasing
