@@ -1,98 +1,49 @@
 #include <bits/stdc++.h>
-
 using namespace std;
+typedef long long ll;
 
-#define ll long long
-
-class check
-{
-public:
-    ll val;
-    ll pos;
-};
-
-int main()
-{
-    ll t;
-    cin >> t;
-
-    while (t--)
-    {
-        ll n, k;
-
-        int p;
-        cin >> n >> k >> p;
-        ll a[n];
-
-        check bda;
-        check chota;
-
-        cin >> a[0];
-        bda.val = a[0];
-        bda.pos = 0;
-        chota.val = a[0];
-        chota.pos = 0;
-        for (ll i = 1; i < n; i++)
-        {
-            cin >> a[i];
-            if (bda.val < a[i])
-            {
-                bda.val = a[i];
-                bda.pos = i;
-            }
-
-            if (chota.val > a[i])
-            {
-                chota.val = a[i];
-                chota.pos = i;
-            }
-        }
-        int end;
-        if (k & 1)
-        {
-            end = p;
-        }
-        else
-        {
-            if (p == 0)
-            {
-                end = 1;
-            }
-            else
-            {
-                end = 0;
-            }
-        }
-
-        if (p == end)
-        {
-            if (p == 0)
-            {
-                cout << bda.val << endl;
-            }
-            else
-            {
-                cout << chota.val << endl;
-            }
-        }
-        else
-        {
-            if (p == 0)
-            {
-                if (bda.pos - 1 >= 0 && bda.pos + 1 <= n - 1)
-                {
-                    ll ans = min(a[bda.pos - 1], a[bda.pos + 1]);
-                    cout << ans << endl;
-                }
-            }
-            else
-            {
-                if (chota.pos - 1 >= 0 && chota.pos + 1 <= n - 1)
-                {
-                    ll ans = max(a[chota.pos - 1], a[chota.pos + 1]);
-                    cout << ans << endl;
-                }
-            }
-        }
-    }
+int main() {
+	int t;
+	cin>>t;
+	while(t--){
+	   ll n,k,ma,mi;
+	   int p;
+	   cin>>n>>k>>p;
+	   ll arr[n];
+	   cin>>arr[0];
+	   ma = mi = arr[0];
+	   for(ll i=1; i<n; i++){
+	       cin>>arr[i];
+	       if(arr[i] > ma){
+	           ma = arr[i];
+	       }
+	       if(arr[i] < mi){
+	           mi = arr[i];
+	       }
+	   }
+	   if(p == 0){
+	       if(k&1){
+	           cout<<ma<<endl;
+	       }
+	       else{
+	           ll m = max(arr[1], arr[n-2]);
+	           for(int i=1; i<n-1; i++){
+	               m = max(m, min(arr[i-1], arr[i+1]));
+	           }
+	           cout<<m<<endl;
+	       }
+	   }
+	   else{
+	       if(k&1){
+	           cout<<mi<<endl;
+	       }
+	       else{
+	           ll m = min(arr[1], arr[n-2]);
+	           for(int i=1; i<n-1; i++){
+	               m = min(m, max(arr[i-1], arr[i+1]));
+	           }
+	           cout<<m<<endl;
+	       }
+	   }
+	}
 }
