@@ -1,198 +1,79 @@
-// #include <bits/stdc++.h>
-// using namespace std;
-// typedef long long ll;
-// #define M 1000000007
-
-// class graph
-// {
-// public:
-//     map<int, list<int>> m;
-
-//     void addEdge(int u, int v)
-//     {
-//         m[u].push_back(v);
-//     }
-
-//     int chudaap(int n, int N)
-//     {
-//         unordered_map<int, bool> visisted;
-//         visisted[n] = true;
-//         queue<int> q;
-//         q.push(n);
-//         int ct = 1;
-
-//         while (!q.empty())
-//         {
-//             int temp = q.front();
-//             q.pop();
-
-//             for (auto i : m[temp])
-//             {
-//                 if (!visisted[i])
-//                 {
-//                     q.push(i);
-//                 }
-//                 ct++;
-//                 if (ct >= N)
-//                 {
-//                     return 1;
-//                 }
-//             }
-//         }
-//         if (ct >= N)
-//         {
-//             return 1;
-//         }
-//         return 0;
-//     }
-
-//     int cal(vector<int> v, int N)
-//     {
-//         int ans = 0;
-//         for (int i = 0; i < v.size(); i++)
-//         {
-//             ans += m[v[i]].size();
-//         }
-
-//         for (auto i : m)
-//         {
-//             ans += chudaap(i.first, N);
-//         }
-//         return ans;
-//     }
-// };
-
-// int main()
-// {
-//     int n;
-//     cin >> n;
-//     ll ct = 0;
-//     graph g;
-//     vector<int> v;
-//     for (int i = 0; i < 26; i++)
-//     {
-//         for (int j = 0; j < 26; j++)
-//         {
-//             char ch;
-//             cin >> ch;
-//             if (ch == '1')
-//             {
-//                 ct++;
-//                 g.addEdge(j, i);
-//                 if (i == j)
-//                 {
-//                     v.push_back(i);
-//                 }
-//             }
-//         }
-//     }
-
-//     if (n == 1)
-//     {
-//         cout << "26" << endl;
-//     }
-//     else if (n == 2)
-//     {
-//         cout << ct << endl;
-//     }
-//     else
-//     {
-//         cout << (g.cal(v, n) % M) << endl;
-//     }
-// }
-
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 #define mod 1000000007
 #define N 26
-typedef long long ll;
 
-void multiply(ll a[][N], ll b[][N], ll res[][N])
+vector<vector<ll>> mul(vector<vector<ll>> a, vector<vector<ll>> b)
 {
-    ll mul[N][N];
-    for (ll i = 0; i < N; i++)
-    {
-        for (ll j = 0; j < N; j++)
-        {
-            mul[i][j] = 0;
-            for (ll k = 0; k < N; k++)
-                mul[i][j] += a[i][k] * b[k][j];
-        }
-    }
-    for (ll i = 0; i < N; i++)
-        for (ll j = 0; j < N; j++)
-            res[i][j] = mul[i][j];
+    vector<vector<ll>> c(N, vector<ll>(N));
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            for (int k = 0; k < N; k++)
+                c[i][j] = (c[i][j] + (a[i][k] * b[k][j]) % mod) % mod;
+    return c;
 }
 
-void power(ll G[N][N], ll res[N][N], ll n)
+vector<vector<ll>> pow(vector<vector<ll>> a, ll n)
 {
     if (n == 1)
+        return a;
+    if (n & 1)
+        return mul(a, pow(a, n - 1));
+    else
     {
-        for (ll i = 0; i < N; i++)
-            for (ll j = 0; j < N; j++)
-                res[i][j] = G[i][j];
-        return;
+        vector<vector<ll>> temp = pow(a, (n >> 1));
+        return mul(temp, temp);
     }
-
-    power(G, res, n / 2);
-    multiply(G, G, res);
-    if (n % 2 != 0)
-        multiply(res, G, res);
 }
 
 int main()
 {
-    ll n;
+    int n;
     cin >> n;
-    n--;
-    ll arr[N][N], res[N][N], b[N][N];
-    for (ll i = 0; i < N; i++)
+    bool n_1 = false;
+    if (n == 1)
     {
-        for (ll j = 0; j < N; j++)
-        {
-            char c;
-            cin >> c;
-            arr[i][j] = c - '0';
-        }
+        n_1 = true;
     }
-    for (ll i = 0; i < N; i++)
+    vector<vector<ll>> arr(N, vector<ll>(N));
+    for (int i = 0; i < N; i++)
     {
-        for (ll j = 0; j < N; j++)
+        for (int j = 0; j < N; j++)
         {
-            b[i][j] = arr[j][i];
-        }
-    }
-    power(b, res, n);
-    ll ans = 0;
-
-    // for(int i=0; i<N; i++){
-    //     for(int j=0; j<N; j++){
-    //       cout<<arr[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-    // cout<<endl<<endl;
-    // for(int i=0; i<N; i++){
-    //     for(int j=0; j<N; j++){
-    //       cout<<b[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-
-    // cout<<endl<<endl;
-    // for(int i=0; i<N; i++){
-    //     for(int j=0; j<N; j++){
-    //         cout<<res[i][j]<<" ";
-    //     }
-    //     cout<<endl;
-    // }
-    for (ll i = 0; i < N; i++)
-    {
-        for (ll j = 0; j < N; j++)
-        {
-            ans += res[i][j];
+            char ch;
+            cin >> ch;
+            arr[i][j] = ch - '0';
         }
     }
 
-    cout << (ans % mod) << endl;
+    vector<vector<ll>> transpose(N, vector<ll>(N));
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            transpose[i][j] = arr[i][j];
+        }
+    }
+
+    if (!n_1)
+    {
+        vector<vector<ll>> c = pow(arr, n - 1);
+        ll ans = 0;
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                ans = (ans + c[i][j]) % mod;
+            }
+        }
+
+        cout << ans << "\n";
+    }
+    else
+    {
+        cout << "26"
+             << "\n";
+    }
+    return 0;
 }
