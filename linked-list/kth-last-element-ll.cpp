@@ -28,8 +28,8 @@ node* kthElement(node* root, int k){
 int main(){
     int temp = 0, k;
     node *root = NULL, *tail = NULL;
+    cin>>temp;
     while(temp != -1){
-        cin>>temp;
         if(tail == NULL){
             root = tail = new node(temp);
         }
@@ -37,6 +37,7 @@ int main(){
             tail->next = new node(temp);
             tail = tail->next;
         }
+        cin>>temp;
     }
 
     cin>>k;
