@@ -40,12 +40,12 @@ node* merge(node *&root1, node *&root2){
     while(root1 && root2){
         if(root1->data <= root2->data){
             temp->next = root1;
-            temp = root1;
+            temp = temp->next;
             root1 = root1->next;
         }
         else{
             temp->next = root2;
-            temp = root2;
+            temp = temp->next;
             root2 = root2->next;
         }
     }
@@ -58,6 +58,7 @@ node* merge(node *&root1, node *&root2){
     }
     return ans;
 }
+
 int main(){
     int t;
     cin>>t;

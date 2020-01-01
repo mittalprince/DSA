@@ -37,6 +37,7 @@ Node* ll_Reverse(Node* root, int k){
     return prev;
 
 }
+
 void printList(Node *root){
     if(root == NULL){
         return;
@@ -48,40 +49,6 @@ void printList(Node *root){
     }
     cout<<endl;
 }
-
-// Node* ReverseItr(Node* root, int n, int k){
-//     int loop = n/k;
-//     Node *newHead = NULL;
-//     Node* temp = root;
-//     while(loop--){
-//         // temp = root;
-//         Node* curr = root;
-//         Node* next = root->next;
-//         Node* prev = NULL;
-//         int ct = k;
-//         while(curr && ct--){
-//             next = curr->next;
-//             curr->next = prev;
-//             prev = curr;
-//             curr = next;
-//         }
-
-//         if(newHead == NULL){
-//             newHead = prev;
-//         }
-//         else if(curr != NULL){
-//             temp->next = prev;
-//             temp = curr;
-//             cout<<"data "<<curr->data<<" "<<prev->data<<endl;
-//         }
-//         // if(curr != NULL){
-//         //     root->next = prev;
-//         // }
-//         root = curr;
-//     }
-
-//     return newHead;
-// }
 
 int main(){
 
@@ -98,48 +65,8 @@ int main(){
         tail = t;
     }
 
-    // root = ll_Reverse(root, k);
-    root = ReverseItr(root, n, k);
+    root = ll_Reverse(root, k);
     printList(root);
 
     return 0;
 }
-
-/*
-
-Node* reverse(Node* root, int k){
-    Node* temp = root;
-
-    Node* curr = temp;
-    Node* next = temp->next;
-    Node* prev = NULL;
-
-    while(k--){
-        next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
-    }
-
-    // root = prev;
-    temp->next = curr;
-    // cout<<"HHHHH";
-    // printList(prev);
-    return curr;
-
-}
-void ll_k_Reverse(Node* &root, int n, int k){
-
-    int loop = n/k;
-    Node* temp = root, *t = NULL;
-    while(loop--){
-        printList(temp);
-        temp = reverse(temp, k);
-        printList(temp);
-        // printList(root);
-        
-    }
-    cout<<"ANSSS";
-    printList(root);
-}
-*/
