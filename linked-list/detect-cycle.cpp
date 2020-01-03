@@ -37,6 +37,7 @@ void removeCycle(node* root){
 
     if(slw == fst){
         slw = root;
+        cout<<fst->data;
         while(fst->next != slw->next){
             slw = slw->next;
             fst = fst->next;

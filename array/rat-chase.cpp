@@ -10,27 +10,29 @@ bool validPath(char input[max][max], int n, int m, int i, int j){
 }
 
 bool findPath(char input[max][max], char output[max][max], int n, int m, int i, int j){
-    if(i==(n-1) && j==(m-1)){
+    if(i==(n-1) && j==(m-1) && input[i][j] =='O'){
         output[i][j] = '1';
         return true;
     }
 
     if(validPath(input, n, m, i, j) ){
+        input[i][j] = '1';
         output[i][j] = '1';
 
         if(findPath(input, output, n, m, i+1, j)){
             return true;
         }
-        // if(findPath(input, output, n, m, i-1, j)){
-        //     return true;
-        // }
+        if(findPath(input, output, n, m, i-1, j)){
+            return true;
+        }
         if(findPath(input, output, n, m, i, j+1)){
             return true;
         }
-        // if(findPath(input, output, n, m, i, j-1)){
-        //     return true;
-        // }
-        // output[i][j] = '0';
+        if(findPath(input, output, n, m, i, j-1)){
+            return true;
+        }
+        output[i][j] = '0';
+        input[i][j] = '0';
 
     }
         return false;
