@@ -44,18 +44,22 @@ int main(){
     cin>>n>>m;
 
     char input[max][max], output[max][max];
+    string s;
     for(int i=0; i<n; i++){
+        cin>>s;
         for(int j=0; j<m; j++){
-            cin>>input[i][j];
+            input[i][j] = s[j];
             output[i][j] = '0';
         }
     }
-    for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                cout<<input[i][j]<<" ";
-            }
-            cout<<"\n";
-        }
+
+    // for(int i=0; i<n; i++){
+    //     for(int j=0; j<m; j++){
+    //         cout<<input[i][j]<<" ";
+    //     }
+    //     cout<<"\n";
+    // }
+
     if(findPath(input, output, n, m, 0, 0)){
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
