@@ -62,3 +62,6 @@ int main(){
     root = helper(root, no);
     printList(root);
 }
+
+
+// use when add two number and head of eacch list represent the most significant digit
