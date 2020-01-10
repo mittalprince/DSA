@@ -1,18 +1,18 @@
 #include<iostream>
 using namespace std;
 
-class node{
+class ListNode{
     public:
     int data;
-    node* next;
+    ListNode* next;
 
-    node(int d){
+    ListNode(int d){
         data = d;
         next = NULL;
     }
 };
 
-void printList(node* head){
+void printList(ListNode* head){
     if(head == NULL){
         return;
     }
@@ -23,10 +23,10 @@ void printList(node* head){
     cout<<endl;
 }
 
-node* merge(node *&root1, node *&root2){
+ListNode* merge(ListNode *&root1, ListNode *&root2){
 
-    node *temp = NULL;
-    node* ans;
+    ListNode *temp = NULL;
+    ListNode* ans;
     if(root1->data <= root2->data){
         temp = root1;
         ans = root1;
@@ -65,26 +65,26 @@ int main(){
     while(t--){
         int n,m,temp;
         cin>>n;
-        node* root = NULL, *tail;
+        ListNode* root = NULL, *tail;
         if(n>0){
             cin>>temp;
-            root = tail = new node(temp);
+            root = tail = new ListNode(temp);
             for(int i=1; i<n; i++){
                 cin>>temp;
-                tail->next = new node(temp);
+                tail->next = new ListNode(temp);
                 tail = tail->next;
             }
             printList(root);
         }
         
-        node* root2 = NULL, *tail2;
+        ListNode* root2 = NULL, *tail2;
         cin>>m;
         if(m>0){
             cin>>temp;
-            root2 = tail2 = new node(temp);
+            root2 = tail2 = new ListNode(temp);
             for(int i=1; i<m; i++){
                 cin>>temp;
-                tail2->next = new node(temp);
+                tail2->next = new ListNode(temp);
                 tail2 = tail2->next;
             }
             printList(root2);
