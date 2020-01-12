@@ -3,37 +3,91 @@ class Solution
 public:
     int kthSmallest(vector<vector<int>> &M, int k)
     {
-        int n = M.size();
-        priority_queue<int> pq;
+#include <bits/stdc++.h>
+        using namespace std;
 
-        int i = 0, j = 0;
-        for (int l = 0; l < k; l++)
+        class Solution
         {
-            pq.push(M[i][j]);
-            j++;
-            if (j == n)
+        public:
+            int kthSmallest(vector<vector<int>> &M, int k)
             {
-                j = 0;
-                i++;
-            }
-        }
-        // cout<<pq.top();
+                int n = M.size();
 
-        while (i < n)
-        {
-            if (M[i][j] < pq.top())
-            {
-                pq.pop();
-                pq.push(M[i][j]);
-            }
+                int l = M[0][0];
+                int r = M[n - 1][n - 1];
 
-            j++;
-            if (j == n)
-            {
-                j = 0;
-                i++;
+                int mid;
+                while (l < r)
+                {
+                    mid = (l + r) >> 1;
+                    int rem = 0;
+                    for (int i = 0; i < n; i++)
+                    {
+                        for (int j = 0; j < n; j++)
+                        {
+                            if (M[i][j] <= mid)
+                            {
+                                rem++;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    if (rem < k)
+                    {
+                        l = mid + 1;
+                    }
+                    else
+                    {
+                        r = mid;
+                        ;
+                    }
+                }
+
+                return l;
             }
-        }
+        };
+        
+        // int n = M.size();
+        // priority_queue<int> pq;
+
+        // int i = 0, j = 0;
+        // for (int l = 0; l < k; l++)
+        // {
+        //     pq.push(M[i][j]);
+        //     j++;
+        //     if (j == n)
+        //     {
+        //         j = 0;
+        //         i++;
+        //     }
+        // }
+        // // cout<<pq.top();
+
+        // while (i < n)
+        // {
+        //     if (M[i][j] < pq.top())
+        //     {
+        //         pq.pop();
+        //         pq.push(M[i][j]);
+        //     }
+
+        //     j++;
+        //     if (j == n)
+        //     {
+        //         j = 0;
+        //         i++;
+        //     }
+        // }
+
+
+
+        // ***************************
+
+
         //         for(int I=i;I<n; I++){
         //             for(int J=0;J<n; J++){
         //                 // cout<<i<<j<<endl;
