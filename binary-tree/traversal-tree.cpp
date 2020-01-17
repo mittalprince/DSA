@@ -7,6 +7,8 @@
 #include<stack>
 using namespace std;
 
+int x = 0;
+
 class node{
     public:
     int data;
@@ -78,6 +80,46 @@ void levelOrder(node *root){
     }
 }
 
+node *insert(node *&root)
+{
+
+    if (x == 0)
+    {
+        int k;
+        cin >> k;
+        x++;
+        root = new node(k);
+        //cout<<k<<endl;
+        root->left = insert(root->left);
+        root->right = insert(root->right);
+        return root;
+    }
+
+    string s = "abc";
+    cin >> s;
+    if (s != "abc")
+    {
+
+        if (s == "true")
+        {
+            int d;
+            cin >> d;
+            //cout<<d<<" "<<s<<endl;
+            node *nn = new node(d);
+            nn->left = insert(nn->left);
+            nn->right = insert(nn->right);
+            return nn;
+        }
+
+        else
+        {
+            return root;
+        }
+    }
+
+    return root;
+}
+
 node* buildTree(){
     int data;
     cin>>data;
@@ -136,21 +178,25 @@ void levelOrderZigzag(node *root){
     }
 }
 
-int main(){
+void helper(){
     node *root = buildTree();
-
     preOrder(root);
-    cout<<endl;
+    cout << endl;
 
     postOrder(root);
-    cout<<endl;
+    cout << endl;
 
     inOrder(root);
-    cout<<endl;
+    cout << endl;
 
     levelOrder(root);
-    cout<<endl;
+    cout << endl;
 
+    levelOrderZigzag(root);
+    cout << endl;
+}
+int main(){
+    node *root = insert(root);
     levelOrderZigzag(root);
     cout<<endl;
 }

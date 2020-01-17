@@ -9,6 +9,8 @@ class node{
     node(int d):data(d),left(NULL),right(NULL){}
 };
 
+int x = 0;
+
 class Pair{
     public:
     int ht;
@@ -16,6 +18,47 @@ class Pair{
 
     Pair():ht(0),balanced(true){}
 };
+
+node *insert(node *&root)
+{
+
+    if (x == 0)
+    {
+        int k;
+        cin >> k;
+        x++;
+        root = new node(k);
+        //cout<<k<<endl;
+        root->left = insert(root->left);
+        root->right = insert(root->right);
+        return root;
+    }
+
+    string s = "abc";
+    cin >> s;
+    if (s != "abc")
+    {
+
+        if (s == "true")
+        {
+            int d;
+            cin >> d;
+            //cout<<d<<" "<<s<<endl;
+            node *nn = new node(d);
+            nn->left = insert(nn->left);
+            nn->right = insert(nn->right);
+            return nn;
+        }
+
+        else
+        {
+            return root;
+        }
+    }
+
+    return root;
+}
+
 
 node* buildTree(){
     int data;
@@ -52,7 +95,7 @@ Pair checkBalanced(node *root){
 }
 
 int main(){
-    node *root = buildTree();
+    node *root = insert(root);
 
     Pair p = checkBalanced(root);
     if(p.balanced){

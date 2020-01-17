@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 class node{
@@ -8,6 +9,16 @@ class node{
 
     node(int d):data(d), left(NULL), right(NULL){}
 };
+
+void preOrder(node *root){
+    if(root == NULL){
+        return;
+    }
+
+    cout<<root->data<<" ";
+    preOrder(root->left);
+    preOrder(root->right);
+}
 
 node* buildTreeFromArr(int arr[], int s, int e){
     if(s > e){
@@ -20,22 +31,12 @@ node* buildTreeFromArr(int arr[], int s, int e){
 
     return root;
 }
-void traversal(node *root){
-    if(root == NULL){
-        return;
-    }
-
-    cout<<root->data<<" ";
-    traversal(root->left);
-    traversal(root->right);
-}
 
 void TreeFromArr(){
     int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
     int n = sizeof(arr) / sizeof(arr[0]);
 
     node *root = buildTreeFromArr(arr, 0, n - 1);
-    traversal(root);
     cout << endl;
 }
 
@@ -69,6 +70,39 @@ node* buildTree(int pre[], int in[], int s, int e){
     }
 }
 
+void traversal(node *root)
+{
+    queue<node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        node *f = q.front();
+        if (f->left != NULL && f->right != NULL)
+        {
+            cout << f->left->data << " => " << f->data << " <= " << f->right->data << endl;
+        }
+        else if (f->left != NULL && f->right == NULL)
+        {
+            cout << f->left->data << " => " << f->data << " <= END" << endl;
+        }
+        else if (f->left == NULL && f->right != NULL)
+        {
+            cout << "END => " << f->data << " <= " << f->right->data << endl;
+        }
+        else
+        {
+            cout << "END => " << f->data << " <= END" << endl;
+        }
+        q.pop();
+        if (f->left)
+            q.push(f->left);
+        if (f->right)
+            q.push(f->right);
+    }
+    return;
+}
+
+
 int main(){
     int n;
     cin>>n;
@@ -76,12 +110,11 @@ int main(){
     for(int i=0; i<n; i++){
         cin>>pre[i];
     }
-    // cin>>n;
+    cin>>n;
     for(int i=0; i<n; i++){
         cin>>in[i];
     }
 
     node *root = buildTree(pre, in, 0, n-1);
     traversal(root);
-    cout<<endl;
 }

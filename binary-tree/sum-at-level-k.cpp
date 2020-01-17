@@ -57,8 +57,6 @@ void traversal(node *root){
 
 int main(){
     node *root = buildTree();
-    traversal(root);
-    cout<<endl;
     int k;
     cin>>k;
     int sum = sumAtLevel(root, k);
