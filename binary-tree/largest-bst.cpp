@@ -63,24 +63,62 @@ void inOrder(node *root)
     inOrder(root->right);
 }
 
-node *buildTree(){
-    int data;
-    cin>>data;
+int findIndex(int arr[], int s, int e, int key)
+{
+    int idx = -1;
+    for (int i = s; i <= e; i++)
+    {
+        if (arr[i] == key)
+        {
+            idx = i;
+            return idx;
+        }
+    }
+    return idx;
+}
 
-    if(data == -1){
+node *buildTree(int pre[], int in[], int s, int e)
+{
+    static int i = 0;
+    if (s > e)
+    {
         return NULL;
     }
-    node *root = new node(data);
-    root->left = buildTree();
-    root->right = buildTree();
 
-    return root;
+    int idx = findIndex(in, s, e, pre[i]);
+    i++;
+    if (idx != -1)
+    {
+        node *root = new node(in[idx]);
+        root->left = buildTree(pre, in, s, idx - 1);
+        root->right = buildTree(pre, in, idx + 1, e);
+        return root;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+void helper()
+{
+    int n;
+    cin >> n;
+    int pre[n], in[n];
+    for (int i = 0; i < n; i++)
+    {
+        cin >> pre[i];
+    }
+    for (int j = 0; j < n; j++)
+    {
+        cin >> in[j];
+    }
+
+    node *root = buildTree(pre, in, 0, n - 1);
+    Pair p = largestBST(root);
+    cout << p.size << endl;
 }
 
 int main(){
-    node *root = buildTree();
-    inOrder(root);
-    cout<<endl;
-    Pair p = largestBST(root);
-    cout<<p.size<<endl;
+    helper();
 }

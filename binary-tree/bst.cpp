@@ -41,9 +41,8 @@ void traversal(node *root){
     if(root == NULL){
         return;
     }
-    
+    cout << root->data << " ";
     traversal(root->left);
-    cout<<root->data<<" ";
     traversal(root->right);
 }
 
@@ -116,23 +115,49 @@ node* deleteNode(node *root, int key){
     }
 
 }
-int main(){
+void MAIN(){
     node *root = build();
     traversal(root);
-    cout<<endl; 
+    cout << endl;
 
     int s;
-    cin>>s;
+    cin >> s;
     node *found = search(root, s);
 
-    if(found != NULL){
-        cout<<"yes\n";
+    if (found != NULL)
+    {
+        cout << "yes\n";
         root = deleteNode(root, s);
+        traversal(root);
+        cout << endl;
+    }
+    else
+    {
+        cout << "no\n";
+    }
+}
+void helper(){
+    int t;
+    cin>>t;
+    while(t--){
+        int n,data;
+        cin >> n;
+        node *root = NULL;
+        for(int i=0; i<n; i++){
+            cin>>data;
+            root = insert(root, data);
+        }
+        int del,q;
+        cin>>q;
+        while(q--){
+            cin>>del;
+            root = deleteNode(root, del);
+        }
         traversal(root);
         cout<<endl;
     }
-    else{
-        cout<<"no\n";
-    }
 
+}
+int main(){
+    helper();
 }
