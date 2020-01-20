@@ -130,6 +130,6 @@ void fromArr(){
 
 int main(){
 
-    fromLL();
+    fromArr();
     return 0;
 }

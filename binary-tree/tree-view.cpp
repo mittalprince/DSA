@@ -194,33 +194,60 @@ void leftView(node *root){
 }
 
 
-node* buildTree(){
-    int data;
-    cin>>data;
+// node* buildTree(){
+//     int data;
+//     cin>>data;
 
-    queue<node*> q;
-    node* root = NULL;
-    while(data != -1){
-        if(q.empty()){
-            root = new node(data);
-            q.push(root);
-        }
-        else{
-            if(!q.empty()){
-                node *temp = q.front();
-                if(!temp->left){
-                    temp->left = new node(data);
-                    q.push(temp->left);
-                }
-                else{
-                    temp->right = new node(data);
-                    q.push(temp->right);
-                    q.pop();
-                }
-            }
-        }
+//     queue<node*> q;
+//     node* root = NULL;
+//     while(data != -1){
+//         if(q.empty()){
+//             root = new node(data);
+//             q.push(root);
+//         }
+//         else{
+//             if(!q.empty()){
+//                 node *temp = q.front();
+//                 if(!temp->left){
+//                     temp->left = new node(data);
+//                     q.push(temp->left);
+//                 }
+//                 else{
+//                     temp->right = new node(data);
+//                     q.push(temp->right);
+//                     q.pop();
+//                 }
+//             }
+//         }
 
-        cin>>data;
+//         cin>>data;
+//     }
+//     return root;
+// }
+
+node *buildtree()
+{
+    int d;
+    cin >> d;
+    node *root = new node(d);
+    queue<node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        node *f = q.front();
+        q.pop();
+        int c1, c2;
+        cin >> c1 >> c2;
+        if (c1 != -1)
+        {
+            f->left = new node(c1);
+            q.push(f->left);
+        }
+        if (c2 != -1)
+        {
+            f->right = new node(c2);
+            q.push(f->right);
+        }
     }
     return root;
 }
@@ -236,23 +263,23 @@ void traversal(node *root){
 }
 
 int main(){
-    node *root = buildTree();
+    node *root = buildtree();
 
-    traversal(root);
-    cout<<endl;
+    // traversal(root);
+    // cout<<endl;
 
-    bottomView(root);
-    cout<<endl;
+    // bottomView(root);
+    // cout<<endl;
 
-    topView(root);
-    cout<<endl;
+    // topView(root);
+    // cout<<endl;
 
-    verticalView(root);
-    cout<<endl;
+    // verticalView(root);
+    // cout<<endl;
     
     rightView(root);
-    cout<<endl;
+    // cout<<endl;
     
-    leftView(root);
-    cout<<endl;
+    // leftView(root);
+    // cout<<endl;
 }

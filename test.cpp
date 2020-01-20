@@ -1,108 +1,65 @@
-#include <bits/stdc++.h>
+#include<iostream>
+
 using namespace std;
-#define max 32
-#define M 100001
 
-vector<int> Queries(vector<int> Index, vector<int> Bit, vector<int> Type, int N, int Q, int Type2)
-{
-    int prefix[M][max];
+class Node{
+    public:
+    int data;
+    Node* left;
+    Node* right;
+    Node(int data):data(data),left(NULL),right(NULL){}
+};
 
-    // for(int i=0; i< max; i++){
-    //     prefix[0][i] = 0;
-    // }
+Node* flatten(Node* root){
 
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < max; j++)
-        {
-            // if(i){
-            prefix[i][j] = 0;
-            // }
-        }
+    if(root == NULL){
+        return NULL;
     }
 
-    vector<int> ans(N);
-    vector<int> v;
-    for (int i = 0; i < N; i++)
-    {
-        ans[i] = 0;
+    Node* left = flatten(root->left);
+    Node* right = flatten(root->right);
+
+    bool check = false;
+    if(left){
+        left->right = root;
+        check = true;
     }
-
-    int i = 0;
-    for (int i = 0; i < Q; i++)
-    {
-        if (Type[i] == 1)
-        {
-            int temp = ans[Index[i]] ^ (1 << (Bit[i]));
-            ans[Index[i]] = temp;
-            if (temp)
-            {
-                prefix[Index[i]][Bit[i]] = prefix[Index[i] - 1][Bit[i]] + 1;
-            }
-            else
-            {
-                prefix[Index[i]][Bit[i]] = prefix[Index[i] - 1][Bit[i]];
-            }
-        }
-        else
-        {
-            int ct = 0;
-            int mask = 1 << (Bit[i]);
-            for (int j = 1; j < max; j++)
-            {
-                prefix[Index[i]][j] += prefix[Index[i]][j - 1];
-            }
-            cout << "ELSE *****" << prefix[Index[i]][Bit[i]] << endl;
-            // cout<<mask<<"********"<<endl;
-            for (int j = 1; j <= Index[i]; j++)
-            {
-                // cout<<"ANS "<<ans[j]<<" check mask "<<(mask & ans[j])<<endl;
-                if (ans[j] & mask)
-                {
-                    ct++;
-                }
-            }
-            v.push_back(ct);
-        }
-
-        // for(int i=0; i<N; i++){
-        //     cout<<ans[i]<<" ";
-        // }
-        // cout<<endl;
-
-        for (int i = 1; i <= N; i++)
-        {
-            for (int j = 0; j < max; j++)
-            {
-                cout << prefix[i][j] << " ";
-            }
-            cout << endl;
-        }
-        cout << "****************" << endl;
+    if(right){
+        root->right = right;
     }
+    Node* head = NULL;
+    if(check){
+        head = left;
+    }
+    else{
+         head = root;
+        }
 
-    return v;
-    // Write your code here
+    return head;
 }
 
-int main()
-{
+void print(Node* head){
+    if(head == NULL) return;
 
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-    int N, Q, Type2 = 0;
-    cin >> N >> Q;
-    vector<int> Type(Q), Index(Q), Bit(Q);
-    for (int i_Type = 0; i_Type < Q; i_Type++)
-    {
-        cin >> Type[i_Type] >> Index[i_Type] >> Bit[i_Type];
-        if (Type[i_Type] == 2)
-            Type2++;
+    while(head!=NULL){
+        cout<<head->data<<" ";
+        head = head->right;
     }
-    vector<int> out_;
-    out_ = Queries(Index, Bit, Type, N, Q, Type2);
-    for (int i_out_ = 0; i_out_ < out_.size(); i_out_++)
-    {
-        cout << out_[i_out_] << endl;
-    }
+
+}
+
+int main(){
+
+    Node* root = new Node(5); 
+    root->left = new Node(3); 
+    root->right = new Node(7); 
+    root->left->left = new Node(2); 
+    root->left->right = new Node(4); 
+    root->right->left = new Node(6); 
+    root->right->right = new Node(8); 
+
+
+    Node* ans = flatten(root);
+
+    print(ans);    
 }

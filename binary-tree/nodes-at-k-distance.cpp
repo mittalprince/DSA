@@ -1,6 +1,10 @@
 #include<iostream>
 #include<queue>
+#include<set>
+#include<iterator>
 using namespace std;
+
+set<int> S;
 
 class node{
     public:
@@ -15,7 +19,8 @@ void kthNodesDown(node *root, int k){
         return;
     }
     if(k == 0){
-        cout<<root->data<<" ";
+        // cout<<root->data<<" ";
+        S.insert(root->data);
         return;
     }
     kthNodesDown(root->left, k-1);
@@ -41,7 +46,8 @@ int allKthDistanceNodes(node *root, node *target, int k){
 
         // we check if left+1 == k, i.e present root node is at k distance from target node (in upper tree)
         if(left+1 == k){
-            cout<<root->data<<" ";
+            // cout<<root->data<<" ";
+            S.insert(root->data);
         }
         else{
             // we print all nodes which are k-left-2 distance apart from root->right (or root ke right subtree mein, in below tree)
@@ -58,7 +64,8 @@ int allKthDistanceNodes(node *root, node *target, int k){
     int right = allKthDistanceNodes(root->right, target, k);
     if(right != -1){
         if(right+1 == k){
-            cout<<root->data<<" ";
+            // cout<<root->data<<" ";
+            S.insert(root->data);
         }
         else{
             kthNodesDown(root->left, k-right-2);
@@ -154,11 +161,16 @@ void helper()
     int q;
     cin >> q;
     while (q--)
-    {
+    {   
+        S.clear();
         int data, k;
         cin >> data >> k;
         node *target = findNode(root, data);
         int temp = allKthDistanceNodes(root, target, k);
+        set<int>::iterator it = S.begin();
+        for(; it!= S.end(); it++){
+            cout<<*it<<" ";
+        }
         cout << endl;
     }
 }

@@ -63,13 +63,14 @@ void buildTree(){
             root = insert(root, data);
         }
         cin>>k1>>k2;
-
+        cout<<"# Preorder : ";
         traversal(root);
         cout<<endl;
 
         vector<int> ans;
         printKey(root, k1, k2, ans);
 
+        cout << "# Nodes within range are : ";
         vector<int>::iterator it = ans.begin();
         for(; it!= ans.end(); it++){
             cout<<*it<<" ";
