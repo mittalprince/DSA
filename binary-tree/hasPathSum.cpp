@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
  
 class node{
@@ -28,6 +29,30 @@ int hasPathSum(node* A, int B) {
     if(A->right)  
         ans = ans || hasPathSum(A->right, B-A->val);  
   
+    return ans;
+}
+
+void check(node *A, int B, vector<vector<int> >&ans, vector<int> &temp){
+    if(A == NULL){
+        return;
+    }
+    
+    temp.push_back(A->val);
+    if(A->left == NULL && A->right == NULL && A->val == B){
+       ans.push_back(temp);
+       temp.pop_back();
+        return;
+    }
+    
+    check(A->left, B-A->val, ans, temp);
+    check(A->right, B-A->val, ans, temp);
+    temp.pop_back();
+    return;
+}
+vector<vector<int> > pathSum(node* A, int B) {
+    vector<int>temp;
+    vector<vector<int> > ans;
+    check(A, B, ans, temp);
     return ans;
 }
 
