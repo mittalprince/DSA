@@ -40,6 +40,51 @@ vector<int> inorderTraversal(node* A) {
     return ans;
 }
 
+vector<int> postorderTraversal(node* A) {
+    vector<int> ans;
+    if(!A){
+        return ans;
+    }
+    stack<node*> s;
+    s.push(A);
+    
+    while(!s.empty()){
+        node *temp = s.top();
+        s.pop();
+        ans.push_back(temp->val);
+        if(temp->left){
+            s.push(temp->left);
+        }
+        if(temp->right){
+            s.push(temp->right);
+        }
+    }
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+vector<int> preorderTraversal(node* A) {
+    vector<int> ans;
+    if(!A){
+        return ans;
+    }
+    stack<node*> s;
+    s.push(A);
+    
+    while(!s.empty()){
+        node *temp = s.top();
+        s.pop();
+        ans.push_back(temp->val);
+        if(temp->right){
+            s.push(temp->right);
+        }
+        if(temp->left){
+            s.push(temp->left);
+        }
+    }
+    return ans;
+}
+
 void preOrder(node *root){
     if(root == NULL){
         return;

@@ -16,6 +16,56 @@ class listNode{
     listNode():head(NULL),tail(NULL){}
 };
 
+node* Solution::flatten(node* A) {
+    // Logic: each node’s right child points to the next node of a pre-order traversal
+    /*
+`        1
+        / \
+       2   5
+      / \   \
+     3   4   6
+`
+
+    1
+    \
+     2
+      \
+       3
+        \
+         4
+          \
+           5
+            \
+             6
+
+    */
+    // Do not write main() function.
+    // Do not read input, instead use the arguments to the function.
+    // Do not print the output, instead return values as specified
+    // Still have a doubt. Checkout www.interviewbit.com/pages/sample_codes/ for more details
+
+   if(A == NULL){
+       return A;
+   }
+   node *root = A;
+   
+   while(root){
+       
+       if(root->left){
+           node *temp = root->left;
+           
+           while(temp->right){
+               temp = temp->right;
+           }
+           temp->right = root->right;
+           root->right = root->left;
+           root->left = NULL;
+       }
+       root = root->right;
+   }
+   
+   return A;
+
 listNode flatten(node *root){
     listNode p;
     if(root ==NULL){
