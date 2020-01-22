@@ -17,6 +17,29 @@ class node{
     node(int d):data(d),left(NULL),right(NULL){}
 };
 
+
+vector<int> inorderTraversal(node* A) {
+    vector<int> ans;
+    stack<node*> s;
+    node *temp = A;
+    while(true){
+        if(temp){
+            s.push(temp);
+            temp = temp->left;
+        }
+        else{
+            if(s.empty()){
+                break;
+            }
+            node *top = s.top();
+            s.pop();
+            ans.push_back(top->val);
+            temp = top->right;
+        }
+    }
+    return ans;
+}
+
 void preOrder(node *root){
     if(root == NULL){
         return;
