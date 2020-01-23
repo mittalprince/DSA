@@ -36,3 +36,55 @@ void Solution::connect(TreeLinkNode* A) {
         }
     }
 }
+
+Node* getNextRight(Node *p)  
+{  
+    Node *temp = p->nextRight;  
+    while (temp != NULL)  
+    {  
+        if (temp->left != NULL)  
+            return temp->left;  
+        if (temp->right != NULL)  
+            return temp->right;  
+        temp = temp->nextRight;  
+    }  
+
+    return NULL;  
+}  
+  
+Node* connect(Node* root) {
+        if(root == NULL){
+            return root;
+        }
+        Node *ans = root;
+        while(root){
+            Node *temp = root;
+            
+            while(temp){
+                if(temp->left){
+                    if(temp->right){
+                        temp->left->next = temp->right;
+                    }
+                    else{
+                        temp->left->next = getNextRight(temp);
+                    }
+                }
+                if(temp->right){
+                    temp->right->next = getNextRight(temp);
+                }
+                temp = temp->next;
+            }
+            
+            if(root->left){
+                root = root->left;
+            }
+            else if(root->right){
+                root = root->right;
+            }
+            else{
+                root = getNextRight(root);
+            }
+        }
+        
+        return ans;
+    }
