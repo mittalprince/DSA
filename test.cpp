@@ -1,65 +1,78 @@
-#include<iostream>
-
+#include <bits/stdc++.h>
+#define maxN 2111111 //6
 using namespace std;
-
-class Node{
-    public:
-    int data;
-    Node* left;
-    Node* right;
-    Node(int data):data(data),left(NULL),right(NULL){}
-};
-
-Node* flatten(Node* root){
-
-    if(root == NULL){
-        return NULL;
-    }
-
-    Node* left = flatten(root->left);
-    Node* right = flatten(root->right);
-
-    bool check = false;
-    if(left){
-        left->right = root;
-        check = true;
-    }
-    if(right){
-        root->right = right;
-    }
-    Node* head = NULL;
-    if(check){
-        head = left;
-    }
-    else{
-         head = root;
-        }
-
-    return head;
+int n, m, x[maxN], p[maxN], r[maxN], infix[maxN], pst[maxN], ct[maxN], ans[maxN];
+vector<pair<int, int> > pr;
+bool myComparison(const pair<int, int> &a, const pair<int, int> &b)
+{
+    if (a.first == b.first)
+        return a.second > b.second;
+    else
+        return a.first < b.first;
+}
+int find_set(int x)
+{
+    if (x != p[x])
+        p[x] = find_set(p[x]);
+    return p[x];
+}
+void merge_set(int x, int y)
+{
+    int ax = find_set(x);
+    int bx = find_set(y);
+    if (r[ax] > r[bx]) // r -> c
+        p[bx] = ax;
+    else
+        p[ax] = bx;
+    if (r[ax] == r[bx])
+        r[bx]++;
 }
 
-void print(Node* head){
-    if(head == NULL) return;
-
-    while(head!=NULL){
-        cout<<head->data<<" ";
-        head = head->right;
+int main()
+{
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> x[i];
+        // scanf("%d", &x[i]);
+        p[i] = i;
+        r[i] = 0;
     }
 
-}
+    for (int i = 0; i < m; i++)
+    {
+        int a, b;
+        cin >> a >> b;
+        // scanf("%d%d", &a, &b);
+        merge_set(x[a], x[b]);
+    }
 
-int main(){
+    //for(int i=1;i<=n;i++)cout<<p[ x[i] ]<<' ';cout<<endl;
+    for (int i = 1; i <= n; i++)
+        find_set(i);
+    pr.push_back(make_pair(-1, -1));
+    for (int i = 1; i <= n; i++)
+        pr.push_back(make_pair(p[x[i]], x[i]));
 
-    Node* root = new Node(5); 
-    root->left = new Node(3); 
-    root->right = new Node(7); 
-    root->left->left = new Node(2); 
-    root->left->right = new Node(4); 
-    root->right->left = new Node(6); 
-    root->right->right = new Node(8); 
+    sort(pr.begin(), pr.end(), myComparison);
 
+    for (int i = 1; i <= n; i++)
+        if (infix[pr[i].first] == 0)
+            infix[pr[i].first] = i;
 
-    Node* ans = flatten(root);
+    for (int pos = 1; pos <= n; pos++)
+    {
+        int i = p[x[pos]];
+        pst[infix[i] + (ct[i])] = pos;
+        ct[i]++;
+    }
 
-    print(ans);    
+    for (int i = 1; i <= n; i++)
+        ans[pst[i]] = pr[i].second;
+
+    for (int i = 1; i <= n; i++)
+        cout << ans[i];
+    // printf("%d ", ans[i]);
+
+    return 0;
 }
