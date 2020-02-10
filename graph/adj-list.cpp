@@ -77,7 +77,8 @@ class graph{
         }
 
         int sssp(T src, T des){
-            map<T, int>dist, parent;
+            map<T, int>dist;
+            map<T, T>parent;
 
             for(auto it: adj){
                 dist[it.first] = INT_MAX;
