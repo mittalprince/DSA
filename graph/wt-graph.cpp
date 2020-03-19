@@ -32,7 +32,12 @@ class graph{
             map<T, int>dist;
             map<T, T>parent;
             set<pair<int, T> >s;
-            
+
+            for (auto node : adj)
+            {
+                dist[node.first] = INT_MAX;
+            }
+
             dist[src] = 0;
             parent[src] = src;
             s.insert(make_pair(0, src));

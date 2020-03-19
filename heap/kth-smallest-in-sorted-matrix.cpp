@@ -43,7 +43,7 @@ public:
                     else
                     {
                         r = mid;
-                        ;
+                        
                     }
                 }
 
