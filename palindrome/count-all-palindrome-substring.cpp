@@ -26,7 +26,7 @@ int CountPS(string s){
                 pal[i][j]=true;
             }
             dp[i][j] = dp[i+1][j]+dp[i][j-1]-dp[i+1][j-1];
-            if(pal[i][j]) = dp[i][j]++;
+            if(pal[i][j]) dp[i][j]++;
         }
     }
     return dp[0][n-1];
